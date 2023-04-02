@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CollectionsMasterConsoleUI
 {
@@ -13,15 +16,23 @@ namespace CollectionsMasterConsoleUI
 
             #region Arrays
             //TODO: Create an integer Array of size 50
-            
+            int[] numbers = new int[50];
 
             //TODO: Create a method to populate the number array with 50 random numbers that are between 0 and 50
-            
+            int[] RandomNumbers() {
+                Random rnd = new Random();
+                for (int i = 0; i < 50; i++)
+                {
+                    numbers[i] = rnd.Next(1, 50);
+                }
+                return numbers;
+            }
 
             //TODO: Print the first number of the array
+            Console.WriteLine(numbers[0]);
 
             //TODO: Print the last number of the array            
-
+            Console.WriteLine(numbers[numbers.Length - 1]);
             Console.WriteLine("All Numbers Original");
             //UNCOMMENT this method to print out your numbers from arrays or lists
             //NumberPrinter();
@@ -33,6 +44,10 @@ namespace CollectionsMasterConsoleUI
                 2) Second way, Create a custom method (scroll to bottom of page to find ⬇⬇⬇)
             */
 
+            int[] revArr = new int[50];
+            int index = 0;
+            numbers.Reverse();
+
             Console.WriteLine("All Numbers Reversed:");
 
             Console.WriteLine("---------REVERSE CUSTOM------------");
@@ -40,15 +55,20 @@ namespace CollectionsMasterConsoleUI
             Console.WriteLine("-------------------");
 
             //TODO: Create a method that will set numbers that are a multiple of 3 to zero then print to the console all numbers
-            Console.WriteLine("Multiple of three = 0: ");
-            
+            foreach (int i in numbers) {
+                if (numbers[i] % 3 == 0) {
+                    numbers[i] = 0;
+                }
+            }
+
+            Console.WriteLine($"Multiple of three = 0: {numbers}");
 
             Console.WriteLine("-------------------");
 
             //TODO: Sort the array in order now
             /*      Hint: Array.____()      */
             Console.WriteLine("Sorted numbers:");
-            
+            Array.Sort(numbers);
 
             Console.WriteLine("\n************End Arrays*************** \n");
             #endregion
@@ -58,45 +78,76 @@ namespace CollectionsMasterConsoleUI
 
             /*   Set Up   */
             //TODO: Create an integer List
-            
+            List<int> integer = new List<int>();
+
 
             //TODO: Print the capacity of the list to the console
-            
+            Console.WriteLine($"List Capacity: {integer.Count}");
 
             //TODO: Populate the List with 50 random numbers between 0 and 50 you will need a method for this            
-            
+            Random rnd = new Random();
+            for (int i = 0; i < 50; i++) {
+                integer.Add(rnd.Next(1, 50));
+            }
 
             //TODO: Print the new capacity
-            
+            Console.WriteLine($"New List Capacity: {integer.Count}");
 
             Console.WriteLine("---------------------");
 
             //TODO: Create a method that prints if a user number is present in the list
             //Remember: What if the user types "abc" accident your app should handle that!
             Console.WriteLine("What number will you search for in the number list?");
+            string enteredID = Console.ReadLine();
+            int parsedID = int.Parse(enteredID);
             
             Console.WriteLine("-------------------");
 
             Console.WriteLine("All Numbers:");
             //UNCOMMENT this method to print out your numbers from arrays or lists
-            //NumberPrinter();
+            NumberPrinter(integer);
             Console.WriteLine("-------------------");
 
 
             //TODO: Create a method that will remove all odd numbers from the list then print results
             Console.WriteLine("Evens Only!!");
-            
+            List<int> oddsOnly () {
+                foreach (int i in integer)
+                {
+                    if (integer[i] % 2 == 0)
+                    {
+                        integer.Remove(i);
+                    }
+                }
+                Console.WriteLine($"Evens: {integer}");
+
+                return integer;
+            }
             Console.WriteLine("------------------");
 
             //TODO: Sort the list then print results
             Console.WriteLine("Sorted Evens!!");
-            
+            integer.Sort();
+            List<int> evensOnly()
+            {
+                foreach (int i in integer)
+                {
+                    if (integer[i] % 3 == 0)
+                    {
+                        integer.Remove(i);
+                    }
+                }
+                Console.WriteLine($"Odds: {integer}");
+                return integer;
+            }
+
             Console.WriteLine("------------------");
 
             //TODO: Convert the list to an array and store that into a variable
-            
+            int[] listToArray = integer.ToArray();
 
             //TODO: Clear the list
+            integer.Clear();
             
 
             #endregion
